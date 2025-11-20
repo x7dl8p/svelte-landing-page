@@ -1,11 +1,36 @@
 <script lang="ts">
   import SectionShell from './SectionShell.svelte';
   import CaseStudyCard from './CaseStudyCard.svelte';
+  import { m } from '$lib/paraglide/messages';
 
   const studies = [
-    { title: 'Jagran', excerpt: 'Large news publishing with archival demands and low-latency upscaling', logo: 'J', link: '#', metricLabel: 'Uptime', metricValue: '99.98%', quote: 'Upgrading to Pro reduced our processing time and improved video grading for broadcast.' },
-    { title: 'ETV Bharat', excerpt: 'Regional broadcast upscaling for HDR restoration workflows', logo: 'E', link: '#', metricLabel: 'Latency', metricValue: '<30ms', quote: 'The edge acceleration made our regional broadcasts seamless.' },
-    { title: 'Wired', excerpt: 'Editorial image restoration for print-quality results', logo: 'W', link: '#', metricLabel: 'Quality', metricValue: 'High', quote: 'Print-quality restorations that our editors love.' }
+    {
+      title: m.case_studies_jagran_title(),
+      excerpt: m.case_studies_jagran_excerpt(),
+      logo: 'J',
+      link: '#',
+      metricLabel: m.case_studies_jagran_metric_label(),
+      metricValue: m.case_studies_jagran_metric_value(),
+      quote: m.case_studies_jagran_quote()
+    },
+    {
+      title: m.case_studies_etv_title(),
+      excerpt: m.case_studies_etv_excerpt(),
+      logo: 'E',
+      link: '#',
+      metricLabel: m.case_studies_etv_metric_label(),
+      metricValue: m.case_studies_etv_metric_value(),
+      quote: m.case_studies_etv_quote()
+    },
+    {
+      title: m.case_studies_wired_title(),
+      excerpt: m.case_studies_wired_excerpt(),
+      logo: 'W',
+      link: '#',
+      metricLabel: m.case_studies_wired_metric_label(),
+      metricValue: m.case_studies_wired_metric_value(),
+      quote: m.case_studies_wired_quote()
+    }
   ];
   let currentIndex = 0;
 
@@ -29,17 +54,17 @@
         <div class="w-12 h-12 bg-stroke flex items-center justify-center">{studies[currentIndex].logo}</div>
         <div class="text-muted">"{studies[currentIndex].quote}"</div>
       </div>
-      <div class="mt-6"><a href={studies[currentIndex].link} class="text-accent hover:underline">Read full case study →</a></div>
-      <div class="text-xs text-muted mt-2">Pro tip: use the Pro plan for high throughput and low tail latency.</div>
+      <div class="mt-6"><a href={studies[currentIndex].link} class="text-accent hover:underline">{m.case_studies_read_full()}</a></div>
+      <div class="text-xs text-muted mt-2">{m.case_studies_pro_tip()}</div>
     </div>
     <div class="flex justify-between mt-4">
-      <button on:click={prev} class="px-4 py-2 border border-stroke font-mono text-sm">← Previous</button>
+      <button on:click={prev} class="px-4 py-2 border border-stroke font-mono text-sm">{m.case_studies_previous()}</button>
       <div class="flex gap-2">
         {#each studies as _, i}
           <button on:click={() => currentIndex = i} aria-label="Go to slide {i + 1}" class="w-3 h-3 rounded-full {i === currentIndex ? 'bg-accent' : 'bg-stroke'}"></button>
         {/each}
       </div>
-      <button on:click={next} class="px-4 py-2 border border-stroke font-mono text-sm">Next →</button>
+      <button on:click={next} class="px-4 py-2 border border-stroke font-mono text-sm">{m.case_studies_next()}</button>
     </div>
   </div>
 </SectionShell>

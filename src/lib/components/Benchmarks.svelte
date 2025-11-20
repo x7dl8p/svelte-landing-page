@@ -1,29 +1,30 @@
 <script lang="ts">
   import SectionShell from './SectionShell.svelte';
+  import { m } from '$lib/paraglide/messages';
 
   const benchmarks = [
     {
-      metric: 'Processing Speed',
-      our: { value: 2.3, unit: 's', label: 'Our Service' },
-      competitor: { value: 4.8, unit: 's', label: 'Competitor A' },
+      metric: m.benchmarks_processing_speed(),
+      our: { value: 2.3, unit: 's', label: m.benchmarks_our_service() },
+      competitor: { value: 4.8, unit: 's', label: m.benchmarks_competitor() },
       winner: 'our'
     },
     {
-      metric: 'Memory Usage',
-      our: { value: 128, unit: 'MB', label: 'Our Service' },
-      competitor: { value: 256, unit: 'MB', label: 'Competitor A' },
+      metric: m.benchmarks_memory_usage(),
+      our: { value: 128, unit: 'MB', label: m.benchmarks_our_service() },
+      competitor: { value: 256, unit: 'MB', label: m.benchmarks_competitor() },
       winner: 'our'
     },
     {
-      metric: 'Cost per 1K images',
-      our: { value: 0.12, unit: '$', label: 'Our Service' },
-      competitor: { value: 0.25, unit: '$', label: 'Competitor A' },
+      metric: m.benchmarks_cost_per_1k(),
+      our: { value: 0.12, unit: '$', label: m.benchmarks_our_service() },
+      competitor: { value: 0.25, unit: '$', label: m.benchmarks_competitor() },
       winner: 'our'
     },
     {
-      metric: 'Quality Score (PSNR)',
-      our: { value: 38.2, unit: 'dB', label: 'Our Service' },
-      competitor: { value: 36.5, unit: 'dB', label: 'Competitor A' },
+      metric: m.benchmarks_quality_score(),
+      our: { value: 38.2, unit: 'dB', label: m.benchmarks_our_service() },
+      competitor: { value: 36.5, unit: 'dB', label: m.benchmarks_competitor() },
       winner: 'our'
     }
   ];
@@ -32,9 +33,9 @@
 <SectionShell className="mt-8">
   <div class="bg-surface border border-stroke">
     <div class="grid grid-cols-3 gap-px bg-stroke">
-      <div class="bg-surface p-4 font-mono text-sm text-muted">Metric</div>
-      <div class="bg-surface p-4 font-mono text-sm text-center">Our Service</div>
-      <div class="bg-surface p-4 font-mono text-sm text-center">Competitor A</div>
+      <div class="bg-surface p-4 font-mono text-sm text-muted">{m.benchmarks_metric()}</div>
+      <div class="bg-surface p-4 font-mono text-sm text-center">{m.benchmarks_our_service()}</div>
+      <div class="bg-surface p-4 font-mono text-sm text-center">{m.benchmarks_competitor()}</div>
     </div>
     {#each benchmarks as b}
       <div class="grid grid-cols-3 gap-px bg-stroke">
@@ -44,7 +45,7 @@
         <div class="bg-surface p-4 text-center {b.winner === 'our' ? 'bg-accent/5' : ''}">
           <div class="text-lg font-semibold">{b.our.unit === '$' ? b.our.unit : ''}{b.our.value}{b.our.unit !== '$' ? b.our.unit : ''}</div>
           {#if b.winner === 'our'}
-            <div class="text-xs text-accent mt-1">✓ Best</div>
+            <div class="text-xs text-accent mt-1">{m.benchmarks_best()}</div>
           {/if}
         </div>
         <div class="bg-surface p-4 text-center">
@@ -54,6 +55,6 @@
     {/each}
   </div>
   <div class="mt-4 text-xs text-muted">
-    * Benchmarks conducted on standardized datasets. Results may vary based on usage patterns.
+    {m.benchmarks_disclaimer()}
   </div>
 </SectionShell>

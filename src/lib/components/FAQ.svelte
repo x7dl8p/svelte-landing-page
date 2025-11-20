@@ -1,13 +1,14 @@
 <script lang="ts">
   import SectionShell from './SectionShell.svelte';
+  import { m } from '$lib/paraglide/messages';
 
   const faqs = [
-    { q: 'How do I get started?', a: 'Sign up and use our SDKs or call the API with your access key. Example code is available in the integration section.', cat: 'getting-started' },
-    { q: 'What image formats do you support?', a: 'We support PNG, JPEG, WebP and more. We also preserve EXIF metadata on request.', cat: 'technical' },
-    { q: 'How do I get an API key?', a: 'Create an account and request a key from the dashboard. For enterprise plans, contact sales.', cat: 'billing' },
-    { q: 'Is there a free tier?', a: 'Yes, our Basic plan is free forever with 100 images/month.', cat: 'billing' },
-    { q: 'How secure is my data?', a: 'We use end-to-end encryption and comply with SOC 2. Images are processed securely.', cat: 'technical' },
-    { q: 'Can I upscale videos?', a: 'Currently we focus on images, but video support is coming soon.', cat: 'technical' }
+    { q: m.faq_q1(), a: m.faq_a1(), cat: 'getting-started' },
+    { q: m.faq_q2(), a: m.faq_a2(), cat: 'technical' },
+    { q: m.faq_q3(), a: m.faq_a3(), cat: 'billing' },
+    { q: m.faq_q4(), a: m.faq_a4(), cat: 'billing' },
+    { q: m.faq_q5(), a: m.faq_a5(), cat: 'technical' },
+    { q: m.faq_q6(), a: m.faq_a6(), cat: 'technical' }
   ];
   let query = '';
   let category: 'all' | 'getting-started' | 'technical' | 'billing' = 'all';
