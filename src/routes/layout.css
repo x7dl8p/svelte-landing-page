@@ -1,3 +1,149 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=JetBrains+Mono:wght@400;700&display=swap');
+
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+:root{
+	--bg-void: #050505;
+	--surface: #0A0A0A;
+	--stroke: #262626;
+	--accent: #D4FF00;
+	--text-primary: #E5E5E5;
+	--muted: #737373;
+}
+
+/* Global dark theme */
+html, body {
+	height: 100%;
+	background-color: var(--bg-void);
+	color: var(--text-primary);
+	font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+/* Mono/labels */
+code, kbd, pre, .mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+/* selection */
+:where(html, body) ::selection { background: var(--accent); color: #000; }
+
+/* Grid background utility - 40px squares */
+.grid-bg {
+	position: fixed;
+	inset: 0;
+	background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+	background-size: 40px 40px, 40px 40px;
+	pointer-events: none;
+	z-index: 0;
+	opacity: 0.6;
+}
+
+/* Corner ticks and crosshair base classes */
+.tick-box {
+	border: 1px solid var(--stroke);
+	position: relative;
+}
+.tick-box:hover { border-color: var(--accent); }
+.tick-box::before, .tick-box::after {
+	content: '';
+	position: absolute;
+	width: 3px; height: 1px;
+	background: var(--stroke);
+}
+.tick-box::before { left: -1px; top: -1px; }
+.tick-box::after { right: -1px; bottom: -1px; }
+
+.corner-tick { position: absolute; width: 6px; height: 6px; }
+.corner-tick::before, .corner-tick::after { content:''; position:absolute; background: var(--stroke); }
+.corner-tick.tl::before{ width:3px; height:1px; left:0; top:0; }
+.corner-tick.tl::after{ width:1px; height:3px; left:0; top:0; }
+.corner-tick.tr::before{ width:3px; height:1px; right:0; top:0; }
+.corner-tick.tr::after{ width:1px; height:3px; right:0; top:0; }
+.corner-tick.bl::before{ width:3px; height:1px; left:0; bottom:0; }
+.corner-tick.bl::after{ width:1px; height:3px; left:0; bottom:0; }
+.corner-tick.br::before{ width:3px; height:1px; right:0; bottom:0; }
+.corner-tick.br::after{ width:1px; height:3px; right:0; bottom:0; }
+
+.corner-tick.highlight::before, .corner-tick.highlight::after { background: var(--accent); }
+
+.crosshair { position: absolute; width: 10px; height: 10px; }
+.crosshair::before, .crosshair::after { content: ''; position: absolute; background: var(--stroke); }
+.crosshair::before{ width: 1px; height: 10px; left: 50%; transform: translateX(-50%); }
+.crosshair::after{ height: 1px; width: 10px; top: 50%; transform: translateY(-50%); }
+
+/* Terminal styles */
+.terminal { background: #000; border: 1px solid var(--stroke); padding: 1rem; color: var(--text-primary); font-family: 'JetBrains Mono'; font-size: 14px; }
+
+/* helper classes */
+:global(.text-muted) { color: var(--muted); }
+:global(.text-text-primary) { color: var(--text-primary); }
+:global(.border-stroke) { border-color: var(--stroke); }
+
+/* Header blur and transparency */
+.nav-blur {
+	background: rgba(10, 10, 10, 0.24);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	border-bottom: 1px solid rgba(38, 38, 38, 0.7);
+	transition: background 150ms linear, border-color 150ms linear;
+}
+.nav-blur.scrolled {
+	background: rgba(10, 10, 10, 0.64);
+}
+
+/* Aliases & utility classes to match the HTML template */
+
+/* Map class-names used in templates to CSS variables */
+.bg-technical-grid {
+	position: fixed;
+	inset: 0;
+	background-image: linear-gradient(to right, #1a1a1a 1px, transparent 1px), linear-gradient(to bottom, #1a1a1a 1px, transparent 1px);
+	background-size: 40px 40px;
+	pointer-events: none;
+	z-index: -1;
+	opacity: 0.6;
+}
+
+.bg-accent { background-color: var(--accent); }
+.text-accent { color: var(--accent); }
+.border-accent { border-color: var(--accent); }
+.bg-surface { background-color: var(--surface); }
+.bg-base { background-color: var(--bg-void); }
+
+/* Provide sane font mapping for tailwind class names if used directly */
+.font-sans { font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+.font-mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+/* Scanline animation for the visualizer */
+@keyframes scan {
+	0% { top: 0%; opacity: 0; }
+	10% { opacity: 1; }
+	90% { opacity: 1; }
+	100% { top: 100%; opacity: 0; }
+}
+.scanline { animation: scan 3s linear infinite; }
+
+/* Tick corner utilities (used in the HTML template) */
+.tick-corner { border: 1px solid var(--stroke); position: relative; }
+.tick-corner::before,
+.tick-corner::after,
+.tick-corner > .tick-inner-1,
+.tick-corner > .tick-inner-2 { content: ''; position: absolute; background: var(--stroke); }
+
+/* Top-left */
+.tick-corner::before { top: -1px; left: -1px; width: 3px; height: 1px; }
+.tick-corner::after { top: -1px; left: -1px; width: 1px; height: 3px; }
+
+/* Bottom-right inner ticks */
+.tick-corner > .tick-inner-1 { right: -1px; bottom: -1px; width: 3px; height: 1px; }
+.tick-corner > .tick-inner-2 { right: -1px; bottom: -1px; width: 1px; height: 3px; }
+
+/* Hover state */
+.tick-corner:hover,
+.tick-box:hover { border-color: var(--accent); }
+.tick-corner:hover::before, .tick-corner:hover::after,
+.tick-box:hover::before, .tick-box:hover::after,
+.corner-tick.highlight::before, .corner-tick.highlight::after {
+	background: var(--accent);
+}
