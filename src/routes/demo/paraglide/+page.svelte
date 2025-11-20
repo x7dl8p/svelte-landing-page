@@ -9,10 +9,6 @@
       if (typeof document !== "undefined") {
         document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
       }
-      if (locale !== "ar") {
-        // set default locale to 'ar' without reloading
-        void setLocale("ar", { reload: false });
-      }
     } catch {
       // ignore
     }
@@ -20,7 +16,7 @@
 </script>
 
 <h1>{m.hello_world({ name: "Mohammad" })}</h1>
-<div>
+<div class="bg-red-100">
   <button on:click={() => setLocale("en")}>en</button>
   <button on:click={() => setLocale("ar")}>ar</button>
 </div>
